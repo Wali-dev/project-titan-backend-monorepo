@@ -1,10 +1,12 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const create=require("../controller/profile.controller");
+const router = express.Router();
 
 
-router.get("/", (req, res) => {
-    res.send("This is the profile route")
-});
+router.post("/create", create);
+// router.get("/:id",getprofile);
+// router.patch("/:id",updateprofile);
+// router.delete("/:id",deleteprofile);
 
 
 

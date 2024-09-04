@@ -1,11 +1,14 @@
 const express = require('express')
 const app = express()
 const cors = require('cors');
-const router = require('./routes/index')
+const router = require('./routes/index');
+const { database } = require('./config/database');
 
 //Middlewares
-app.use(cors())
+app.use(cors());
 
+//Database connect
+database();
 
 //Routers
 app.use("/api/v1/", router);

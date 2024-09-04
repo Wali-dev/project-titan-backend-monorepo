@@ -8,13 +8,13 @@ app.use(cors())
 
 
 //Routers
-app.use("/", router);
+app.use("/api/v1/", router);
 
 
 app.get('/', (req, res) => {
     res.send("Groove streets, home!")
 })
 
-//default error
+
 
 module.exports = app;

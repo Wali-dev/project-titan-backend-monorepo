@@ -1,12 +1,12 @@
+
 const createProfile = require("../services/profile.service");
 
 
-module.exports.create = (req, res) => {
-    const { email, password } = req.body;
+const create = (req, res) => {
+    const { email, passwprd } = req.body;
     const response = createProfile(email, password);
     res.status(201).send(response);
 }
-
 
 module.exports.seeprofile = async (req, res) => {
     try {
@@ -34,3 +34,9 @@ module.exports.updateProfile = async (req, res) => {
         console.log(error);
     }
 }
+
+
+
+module.exports = {
+    create
+};

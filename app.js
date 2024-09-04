@@ -5,6 +5,7 @@ const router = require('./routes/index');
 const { database } = require('./config/database');
 
 //Middlewares
+app.use(express.json());
 app.use(cors());
 
 //Database connect

@@ -1,19 +1,29 @@
-const mongoose=require("mongoose");
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const profile = new Schema({
+
+const profileSchema = new Schema({
     username: {
         type: String,
         required: false,
     },
     email: {
         type: String,
+        required: true,
+        unique: true
+    },
+    firstname: {
+        type: String,
         required: true
+    },
+    lastname: {
+        type: String,
+        required: false
     },
     password: {
         type: String,
         required: true
     },
-    img: {
+    profile_picture: {
         type: String,
         required: false
     },
@@ -23,12 +33,16 @@ const profile = new Schema({
     },
     phone: {
         type: String,
-        required: false,
+        required: false
     },
-    desc: {
+    description: {
         type: String,
-        required: false,
+        required: false
     },
-    social: [String]
+    social: {
+        type: [String],
+        required: false
+    }
 });
-module.exports.profileModel = mongoose.model("Profile", profile);
+
+module.exports = mongoose.model("Profile", profileSchema);

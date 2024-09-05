@@ -1,9 +1,9 @@
 const express = require('express');
-const { create } = require("../controller/profile.controller");
+const { getSingleProfile } = require("../controller/profile.controller");
 const router = express.Router();
 
-router.post("/create", create);
-// router.get("/:id", getProfile);
+
+router.get("/:username", getSingleProfile);
 // router.patch("/:id", updateProfile);
 // router.delete("/:id", deleteProfile);
 

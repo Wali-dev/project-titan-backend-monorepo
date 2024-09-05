@@ -4,6 +4,7 @@ const Router = express.Router();
 const profileRouter = require('./profile.route');
 const registerRouter = require('./register.route');
 const authRouter = require('./auth.route');
+const verifyRouter = require('./verify.route');
 
 const routes = [
     {
@@ -17,6 +18,10 @@ const routes = [
     {
         path: '/signin',
         router: authRouter
+    },
+    {
+        path: '/verify',
+        router: verifyRouter
     },
 
 ];

@@ -1,39 +1,46 @@
 
-const { getprofile } = require("../services/profile.service");
+const { getprofile, updateprofile, deleteprofile } = require("../services/profile.service");
+const sendResponse = require("../utils/sendResponse");
 
 
 const getSingleProfile = async (req, res) => {
     const { username } = req.params;
     const response = await getprofile(username);
     if (response) {
+        sendResponse(res, 200, true, "User fetched succesfully", response)
     }
-
-
-
+    else {
+        sendResponse(res, 400, false, "Failed to fetch user", response)
+    }
 }
 
+const deleteProfile = async (req, res) => {
+    const { username } = req.params;
+    const response = deleteprofile(username);
+    if (response) {
+        sendResponse(res, 200, true, "User profile deleted succesfully", response)
+    }
+    else {
+        sendResponse(res, 400, false, "Failed to delete profile", response)
+    }
+}
 
-// module.exports.deleteProfile = async (req, res) => {
-//     try {
-//         const profile = deleteprofile(req.params.id);
-//         res.status(200).send("deleted successfully");
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
-
-// module.exports.updateProfile = async (req, res) => {
-//     const { email, password } = user.body;
-//     try {
-//         await updateprofile(req.params.id, email, password);
-//         res.status(200).send("profile updated successfully");
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+const updateProfile = async (req, res) => {
+    const { id } = req.params;
+    const userdata = req.body
+    const response = await updateprofile(id, userdata);
+    if (response) {
+        sendResponse(res, 200, true, "User profile updated succesfully", response)
+    }
+    else {
+        sendResponse(res, 400, false, "Failed to update profile", response)
+    }
+}
 
 
 
 module.exports = {
-    getSingleProfile
+    getSingleProfile,
+    updateProfile,
+    deleteProfile
 };

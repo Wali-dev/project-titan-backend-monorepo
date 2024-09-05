@@ -2,34 +2,50 @@ const profileModel = require("../models/profile.model");
 
 
 module.exports.getprofile = async (username) => {
-
-    console.log(username)
-    // try {
-    //     const profile = await profileModel.findById(id);
-    //     if (!profile) return res.status(404).send("no such user found");
-    // } catch (error) {
-    //     console.log(error);
-    // }
-}
-
-module.exports.deleteprofile = async (id) => {
     try {
-        const profile = await profileModel.findById(id);
-        if (!profile) return res.status(404).send("no such user found");
-        profileModel.findByIdAndDelete(id);
-        res.status(200).send("deleted successfully");
+        if (username) {
+            const userProfile = await profileModel.findOne({ username, isDeleted: false }).select('-password');
+            if (!userProfile) {
+                return "No user found with this username";
+            } else {
+                return userProfile
+            }
+        }
     } catch (error) {
         console.log(error);
     }
 }
 
-module.exports.updateprofile = async (id, email, password) => {
+module.exports.deleteprofile = async (username) => {
     try {
-        await profileModel.findByIdAndUpdate(req.params.id, {
-            ...req.body
-        })
-        res.status(200).send("profile updated successfully");
+        if (username) {
+            const profile = await profileModel.findOne({ username });
+            if (!profile) {
+                return "No user found with this username";
+            }
+            await profileModel.updateOne({ username }, { isDeleted: true });
+            return "Profile deleted successfully";
+        } else {
+            return "Username is required";
+        }
     } catch (error) {
         console.log(error);
+    }
+}
+
+module.exports.updateprofile = async (id, userdata) => {
+    try {
+        if (id && userdata) {
+            const userProfile = await profileModel.findById(id);
+            if (userProfile) {
+                await userProfile.updateOne(userdata);
+                const updatedProfile = await profileModel.findById(id).select('-password');
+                return updatedProfile;
+            } else {
+                return "Unable to find user";
+            }
+        }
+    } catch (error) {
+        console.log(error)
     }
 }

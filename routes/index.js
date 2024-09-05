@@ -3,6 +3,7 @@ const Router = express.Router();
 
 const profileRouter = require('./profile.route');
 const registerRouter = require('./register.route');
+const authRouter = require('./auth.route');
 
 const routes = [
     {
@@ -13,6 +14,11 @@ const routes = [
         path: '/register',
         router: registerRouter
     },
+    {
+        path: '/signin',
+        router: authRouter
+    },
+
 ];
 
 routes.forEach((routeObject) => {

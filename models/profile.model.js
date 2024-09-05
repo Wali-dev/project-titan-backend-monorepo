@@ -42,7 +42,22 @@ const profileSchema = new Schema({
     social: {
         type: [String],
         required: false
-    }
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    verificationCode: {
+        type: String,
+    },
+    verificationCodeLimit: {
+        type: Date,
+    },
+
 });
 
 module.exports = mongoose.model("Profile", profileSchema);

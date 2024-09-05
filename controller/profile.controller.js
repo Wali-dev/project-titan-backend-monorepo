@@ -1,42 +1,39 @@
 
-const createProfile = require("../services/profile.service");
+const { getprofile } = require("../services/profile.service");
 
 
-const create = (req, res) => {
-    const { email, passwprd } = req.body;
-    const response = createProfile(email, password);
-    res.status(201).send(response);
-}
-
-module.exports.seeprofile = async (req, res) => {
-    try {
-        const profile = getprofile(req.params.id);
-        res.status(200).send(profile);
-    } catch (error) {
-        console.log(error);
+const getSingleProfile = async (req, res) => {
+    const { username } = req.params;
+    const response = await getprofile(username);
+    if (response) {
     }
-}
-module.exports.deleteProfile = async (req, res) => {
-    try {
-        const profile = deleteprofile(req.params.id);
-        res.status(200).send("deleted successfully");
-    } catch (error) {
-        console.log(error);
-    }
+
+
+
 }
 
-module.exports.updateProfile = async (req, res) => {
-    const { email, password } = user.body;
-    try {
-        await updateprofile(req.params.id, email, password);
-        res.status(200).send("profile updated successfully");
-    } catch (error) {
-        console.log(error);
-    }
-}
+
+// module.exports.deleteProfile = async (req, res) => {
+//     try {
+//         const profile = deleteprofile(req.params.id);
+//         res.status(200).send("deleted successfully");
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+
+// module.exports.updateProfile = async (req, res) => {
+//     const { email, password } = user.body;
+//     try {
+//         await updateprofile(req.params.id, email, password);
+//         res.status(200).send("profile updated successfully");
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
 
 
 
 module.exports = {
-    create
+    getSingleProfile
 };

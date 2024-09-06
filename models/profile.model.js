@@ -54,7 +54,7 @@ const profileSchema = new Schema({
     verificationCode: {
         type: String,
     },
-    verificationCodeLimit: {
+    verificationCodeExpire: {
         type: Date,
     },
 

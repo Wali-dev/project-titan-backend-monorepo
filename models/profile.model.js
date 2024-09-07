@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const pMessage = require('./priorityMessage.model');
 const call1to1 = require("./1to1Call.model");
+const documentService = require("./digitalDocument.model");
 
 const profileSchema = new Schema({
     username: {
@@ -60,7 +61,8 @@ const profileSchema = new Schema({
         type: Date,
     },
     pMessages: { type: [pMessage.schema], default: [] },
-    call1to1s: { type: [call1to1.schema], default: [] }
+    call1to1s: { type: [call1to1.schema], default: [] },
+    documentServices: { type: [documentService.schema], default: [] }
 
 });
 

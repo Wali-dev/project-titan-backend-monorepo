@@ -31,15 +31,15 @@ module.exports.updateCalls = async (username, callserviceId, updatedCallData) =>
         if (callIndex === -1) {
             return ' Call not found';
         }
-        if (!callIndex) {
+        if (callIndex.toString() === ' ') {
             return 'Call not found';
         }
         Object.assign(profile.pMessages[callIndex], updatedCallData);
         await profile.save();
-        const updatedProfile = await profileModel.findOne({ username });
+        // const updatedProfile = await profileModel.findOne({ username });
         return 'call updated successfully';
     } catch (error) {
-        console.error('Error updating pMessage:', error);
+        console.error('Error updating call:', error);
         return 'Failed to update call';
     }
 };

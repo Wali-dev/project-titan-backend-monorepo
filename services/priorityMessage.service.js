@@ -32,12 +32,12 @@ module.exports.updatePMessage = async (username, pmserviceId, updatedPMessageDat
         if (pMessageIndex === -1) {
             return 'pMessage not found';
         }
-        if (!pMessageIndex) {
+        if (pMessageIndex.toString() === ' ') {
             return 'pMessage not found';
         }
         Object.assign(profile.pMessages[pMessageIndex], updatedPMessageData);
         await profile.save();
-        const updatedProfile = await profileModel.findOne({ username });
+        //  const updatedProfile = await profileModel.findOne({ username });
         return 'pMessage updated successfully';
     } catch (error) {
         console.error('Error updating pMessage:', error);

@@ -1,4 +1,5 @@
 const { addCall, updateCalls } = require("../services/call.service");
+const { addDocument, updateDocuments } = require("../services/document.service");
 const { addPriorityMessages, updatePMessage } = require("../services/priorityMessage.service");
 const sendResponse = require("../utils/sendResponse");
 
@@ -50,7 +51,30 @@ const updateCall = async (req, res) => {
     }
 }
 
+const createDocument = async (req, res) => {
+    const { username } = req.params;
+    const documentServiceData = req.body
+    const response = await addDocument(username, documentServiceData);
+    if (response) {
+        sendResponse(res, 200, true, "Document created successfully", response)
+    }
+    else {
+        sendResponse(res, 400, false, "Failed to create document", response)
+    }
+}
+
+const updateDocument = async (req, res) => {
+    const { username, documentserviceId } = req.query;
+    const updatedDocumentData = req.body;
+    const response = await updateDocuments(username, documentserviceId, updatedDocumentData);
+    if (response) {
+        sendResponse(res, 200, true, "Document updated successfully", response)
+    }
+    else {
+        sendResponse(res, 400, false, "Failed to update document", response)
+    }
+}
 
 
 
-module.exports = { createPM, updatePM, createCall, updateCall }
+module.exports = { createPM, updatePM, createCall, updateCall, createDocument, updateDocument }

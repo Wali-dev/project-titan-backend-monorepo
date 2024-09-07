@@ -5,6 +5,7 @@ const profileRouter = require('./profile.route');
 const registerRouter = require('./register.route');
 const authRouter = require('./auth.route');
 const verifyRouter = require('./verify.route');
+const serviceRouter = require('./service.route');
 
 const routes = [
     {
@@ -23,6 +24,11 @@ const routes = [
         path: '/verify',
         router: verifyRouter
     },
+    {
+        path: '/service',
+        router: serviceRouter
+    },
+
 
 ];
 

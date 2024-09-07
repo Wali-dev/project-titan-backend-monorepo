@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const pMessage = require('./priorityMessage.model')
 
 const profileSchema = new Schema({
     username: {
@@ -57,6 +58,7 @@ const profileSchema = new Schema({
     verificationCodeExpire: {
         type: Date,
     },
+    pMessages: { type: [pMessage.schema], default: [] },
 
 });
 

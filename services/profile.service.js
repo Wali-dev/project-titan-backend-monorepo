@@ -49,3 +49,68 @@ module.exports.updateprofile = async (id, userdata) => {
         console.log(error)
     }
 }
+
+module.exports.addSocialItem = async (username, platform, url) => {
+    try {
+        const result = await profileModel.updateOne(
+            { username: username },
+            { $push: { social: { platform, url } } }
+        );
+
+        if (result.modifiedCount === 0) {
+            return "Profile doesn't exist";
+        }
+
+        return "Social link added successfully";
+    } catch (error) {
+        console.error('Error adding social item:', error);
+        throw error;
+    }
+}
+
+module.exports.deleteSocialItem = async (username, platform, url) => {
+    try {
+        const result = await profileModel.updateOne(
+            { username: username },
+            { $pull: { social: { platform, url } } }
+        );
+
+        if (result.modifiedCount === 0) {
+            return "No changes made. Item not found or profile doesn't exist.";
+        }
+
+        return "Social link deleted successfully";
+    } catch (error) {
+        console.error('Error deleting social link:', error);
+        throw error;
+    }
+}
+
+// // Function to update a social item
+// async function updateSocialItem(username, oldPlatform, oldIdentifier, newPlatform, newIdentifier) {
+//     try {
+//         const result = await Profile.updateOne(
+//             {
+//                 username: username,
+//                 'social.platform': oldPlatform,
+//                 'social.identifier': oldIdentifier
+//             },
+//             {
+//                 $set: {
+//                     'social.$.platform': newPlatform,
+//                     'social.$.identifier': newIdentifier
+//                 }
+//             }
+//         );
+
+//         if (result.modifiedCount === 0) {
+//             return "No changes made. Item not found or profile doesn't exist.";
+//         }
+
+//         return "Social item updated successfully";
+//     } catch (error) {
+//         console.error('Error updating social item:', error);
+//         throw error;
+//     }
+// }
+

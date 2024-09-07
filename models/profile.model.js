@@ -43,7 +43,10 @@ const profileSchema = new Schema({
         required: false
     },
     social: {
-        type: [String],
+        type: [{
+            platform: String,
+            url: String
+        }],
         required: false
     },
     isDeleted: {

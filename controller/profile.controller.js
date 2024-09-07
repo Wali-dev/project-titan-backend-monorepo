@@ -1,5 +1,5 @@
 
-const { getprofile, updateprofile, deleteprofile } = require("../services/profile.service");
+const { getprofile, updateprofile, deleteprofile, addSocialItem, deleteSocialItem } = require("../services/profile.service");
 const sendResponse = require("../utils/sendResponse");
 
 
@@ -37,10 +37,33 @@ const updateProfile = async (req, res) => {
     }
 }
 
+const addSocialLink = async (req, res) => {
+    const { username, platform, url } = req.body
+    const response = await addSocialItem(username, platform, url);
+    if (response) {
+        sendResponse(res, 200, true, "Social link added succesfully", response)
+    }
+    else {
+        sendResponse(res, 400, false, "Failed to add social link", response)
+    }
+}
+const deleteSocialLink = async (req, res) => {
+    const { username, platform, url } = req.body
+    const response = await deleteSocialItem(username, platform, url);
+    if (response) {
+        sendResponse(res, 200, true, "Social link deleted succesfully", response)
+    }
+    else {
+        sendResponse(res, 400, false, "Failed to delete social link", response)
+    }
+}
+
 
 
 module.exports = {
     getSingleProfile,
     updateProfile,
-    deleteProfile
+    deleteProfile,
+    addSocialLink,
+    deleteSocialLink
 };

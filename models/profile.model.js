@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 const pMessage = require('./priorityMessage.model');
 const call1to1 = require("./1to1Call.model");
 const documentService = require("./digitalDocument.model");
+const order = require("./order.model");
 
 const profileSchema = new Schema({
     username: {
@@ -62,7 +63,10 @@ const profileSchema = new Schema({
     },
     pMessages: { type: [pMessage.schema], default: [] },
     call1to1s: { type: [call1to1.schema], default: [] },
-    documentServices: { type: [documentService.schema], default: [] }
+    documentServices: { type: [documentService.schema], default: [] },
+
+    //Orders
+    orders: { type: [order.schema], default: [] }
 
 });
 

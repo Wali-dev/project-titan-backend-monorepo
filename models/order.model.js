@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
-    orderType: { type: String, required: true },
+    orderType: {
+        type: { type: String },
+        // required: true,
+        enum: ['pMessage', '1to1Call', 'digitalProduct']
+    },
     username: { type: String, required: true },
     customerName: { type: String },
     customerEmail: { type: String },
@@ -24,8 +28,8 @@ const orderSchema = new Schema({
     orderAnswer: { type: String },
 
     // For 1:1 Call
-    inviteQuestions: { type: String },
-    inviteQuestionAnswer: { type: String },
+    inviteQuestions: { type: String }, //for pm also
+    inviteQuestionAnswer: { type: String }, //for pm also
     callDuration: { type: String },
     callCustomLink: { type: String },
 

@@ -1,8 +1,7 @@
 const express = require('express');
+const { createOrder } = require('../controller/order.controller');
 const router = express.Router();
 
-router.post("/", (req, res) => {
-    res.send("this is the order route")
-})
+router.post("/:username", createOrder)
 
 module.exports = router;

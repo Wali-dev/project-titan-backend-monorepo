@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
     orderType: {
-        type: { type: String },
-        // required: true,
+        type: String,
+        required: true,
         enum: ['pMessage', '1to1Call', 'digitalProduct']
     },
     username: { type: String, required: true },

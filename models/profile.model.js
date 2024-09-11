@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const pMessage = require('./priorityMessage.model');
+const call1to1 = require("./1to1Call.model");
+const documentService = require("./digitalDocument.model");
+const order = require("./order.model");
 
 const profileSchema = new Schema({
     username: {
@@ -40,7 +44,10 @@ const profileSchema = new Schema({
         required: false
     },
     social: {
-        type: [String],
+        type: [{
+            platform: String,
+            url: String
+        }],
         required: false
     },
     isDeleted: {
@@ -57,6 +64,12 @@ const profileSchema = new Schema({
     verificationCodeExpire: {
         type: Date,
     },
+    pMessages: { type: [pMessage.schema], default: [] },
+    call1to1s: { type: [call1to1.schema], default: [] },
+    documentServices: { type: [documentService.schema], default: [] },
+
+    //Orders
+    orders: { type: [order.schema], default: [] }
 
 });
 

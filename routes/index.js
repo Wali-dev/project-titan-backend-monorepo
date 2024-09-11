@@ -16,7 +16,7 @@ const routes = [
         router: registerRouter
     },
     {
-        path: '/signin',
+        path: '/auth',
         router: authRouter
     },
     {

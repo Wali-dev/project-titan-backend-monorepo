@@ -1,7 +1,7 @@
 const verificationEmail = require("../email-templates/emailVerificationEmail");
 const profileModel = require("../models/profile.model");
 const transporter = require("../utils/sendEmail");
-require('dotenv').config()
+require('dotenv').config();
 
 module.exports.SendVerificationEmail = async (username) => {
     try {

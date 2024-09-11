@@ -1,15 +1,20 @@
-const { handleSignIn } = require("../services/auth.service");
+const { handleSignIn, handleSignOut } = require("../services/auth.service");
 const sendResponse = require("../utils/sendResponse");
 
 const handleSignin = async (req, res) => {
     const { identifier, password } = req.body
     const response = await handleSignIn(identifier, password);
     if (response) {
-        sendResponse(res, 200, true, "Login successful", response)
+        res.cookie("accesstoken",response,{httpOnly:true});
+        sendResponse(res, 200, true, "Login successful", response);
     } else {
-        sendResponse(res, 400, false, "login failed", response)
+        sendResponse(res, 400, false, "login failed", response);
     }
 
+}
+
+const handleLogout=async(req,res)=>{
+    await handleSignOut(res);
 }
 
 
@@ -26,4 +31,4 @@ const handleSignin = async (req, res) => {
 
 
 
-module.exports = { handleSignin }
+module.exports = { handleSignin,handleLogout }

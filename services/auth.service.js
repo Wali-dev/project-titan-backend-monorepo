@@ -33,3 +33,14 @@ module.exports.handleSignIn = async (identifier, password) => {
         console.log(error);
     }
 }
+
+module.exports.handleSignOut=(res)=>{
+    res
+    .clearCookie("accessToken", {
+      sameSite: "none",
+      secure: true,
+      path:"/"
+    })
+    .status(200)
+    .send("User has been logged out.");
+}

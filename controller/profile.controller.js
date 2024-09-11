@@ -1,6 +1,7 @@
 
 const { getprofile, updateprofile, deleteprofile } = require("../services/profile.service");
 const sendResponse = require("../utils/sendResponse");
+// const profileValidator = require('../validators/profile.validator');
 
 
 const getSingleProfile = async (req, res) => {
@@ -10,7 +11,7 @@ const getSingleProfile = async (req, res) => {
         sendResponse(res, 200, true, "User fetched succesfully", response)
     }
     else {
-        sendResponse(res, 400, false, "Failed to fetch user", response)
+         sendResponse(res, 400, false, "Failed to fetch user", response)
     }
 }
 

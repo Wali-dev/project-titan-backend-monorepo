@@ -4,10 +4,12 @@ const cors = require('cors');
 const router = require('./routes/index');
 const { database } = require('./config/database');
 const profileModel = require('./models/profile.model');
+const cookieParser = require('cookie-parser');
 
 //Middlewares
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 //Database connect
 database();

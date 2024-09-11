@@ -17,10 +17,10 @@ const callSchema = new Schema({
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
     callCustomLink: { type: String },
-    totalViews: { type: String },
-    totalBookings: { type: String },
-    totalEarnings: { type: String },
-    conversing: { type: String }
+    totalViews: { type: Number },
+    totalBookings: { type: Number },
+    totalEarnings: { type: Number },
+    conversing: { type: Number }
 });
 
 const call1to1 = mongoose.model('call1to1', callSchema);

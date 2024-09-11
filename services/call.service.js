@@ -1,47 +1,92 @@
 const profileModel = require("../models/profile.model");
+const Call1to1 = require("../models/1to1Call.model");
+const mongoose = require('mongoose');
 
-module.exports.addCall = async (username, callServiceData) => {
+module.exports.addCallService = async (username, callServiceData) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
     try {
-        const profile = await profileModel.findOne({ username });
+        const profile = await profileModel.findOne({ username }).session(session);
         if (!profile) {
+            await session.abortTransaction();
+            session.endSession();
             return 'Profile not found';
         }
-        profile.call1to1s.push(callServiceData);
-        await profile.save();
-        const updatedProfile = await profileModel.findOne({ username });
-        return updatedProfile.call1to1s[updatedProfile.call1to1s.length - 1];
+
+        const newCallService = new Call1to1(callServiceData);
+        await newCallService.save({ session });
+
+        if (!profile.callServices) {
+            profile.callServices = [];
+        }
+        profile.callServices.push(newCallService._id);
+
+        try {
+            await profile.save({ session });
+        } catch (validationError) {
+            console.error('Validation error:', validationError);
+            await session.abortTransaction();
+            session.endSession();
+            return 'Failed to add call service to profile';
+        }
+
+        await session.commitTransaction();
+        session.endSession();
+
+        return newCallService;
     } catch (error) {
-        console.error('Error adding service:', error);
-        return 'Failed to add call service service';
+        await session.abortTransaction();
+        session.endSession();
+        console.error('Error adding call service:', error);
+        return 'Failed to add call service';
     }
 }
 
-module.exports.updateCalls = async (username, callserviceId, updatedCallData) => {
+module.exports.updateCallService = async (username, callserviceId, updatedCallData) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
     try {
-        const profile = await profileModel.findOne({ username });
+        const profile = await profileModel.findOne({ username }).session(session);
         if (!profile) {
+            await session.abortTransaction();
+            session.endSession();
             return 'Profile not found';
         }
-        if (!Array.isArray(profile.call1to1s)) {
-            profile.call1to1s = [];
+
+        if (!profile.call1to1s) {
+            await session.abortTransaction();
+            session.endSession();
+            return 'No call services found for this profile';
         }
-        const callIndex = profile.call1to1s.findIndex(
-            (call) => call._id.toString() === callserviceId
+
+        // if (!profile.call1to1s.includes(callserviceId)) {
+        //     await session.abortTransaction();
+        //     session.endSession();
+        //     return 'Call service not found for this profile';
+        // }
+
+        const updatedCallService = await Call1to1.findByIdAndUpdate(
+            callserviceId,
+            updatedCallData,
+            { new: true, session }
         );
-        if (callIndex === -1) {
-            return ' Call not found';
+
+        if (!updatedCallService) {
+            await session.abortTransaction();
+            session.endSession();
+            return 'Call service not found';
         }
-        if (callIndex.toString() === ' ') {
-            return 'Call not found';
-        }
-        Object.assign(profile.pMessages[callIndex], updatedCallData);
-        await profile.save();
-        // const updatedProfile = await profileModel.findOne({ username });
-        return 'call updated successfully';
+
+        await session.commitTransaction();
+        session.endSession();
+
+        return updatedCallService;
     } catch (error) {
-        console.error('Error updating call:', error);
-        return 'Failed to update call';
+        await session.abortTransaction();
+        session.endSession();
+        console.error('Error updating call service:', error);
+        return 'Failed to update call service';
     }
 };
-
-

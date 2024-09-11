@@ -19,10 +19,10 @@ const documentSchema = new Schema({
     ],
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
-    totalViews: { type: String },
-    totalBookings: { type: String },
-    totalEarnings: { type: String },
-    conversing: { type: String }
+    totalViews: { type: Number },
+    totalBookings: { type: Number },
+    totalEarnings: { type: Number },
+    conversing: { type: Number }
 });
 
 const documentService = mongoose.model('documentSchema', documentSchema);

@@ -1,18 +1,18 @@
-const {query, param, validationResult } = require('express-validator');
+const { query, param, validationResult } = require('express-validator');
 const sendResponse = require('../utils/sendResponse');
 
 const verificationEmailSchema = [
-    param("username") //not working
-        .notEmpty().withMessage("Username is required")  
-        .isString().withMessage("Username must be a string"), 
+    param("username")
+        .notEmpty().withMessage("Username is required")
+        .isString().withMessage("Username must be a string"),
 ];
 const verifyAccountSchema = [
-    query("username") //not working
-        .notEmpty().withMessage("Username is required")                             
-        .isString().withMessage("Username must be a string"), 
-    query("verificationCode") //not working
-        .notEmpty().withMessage("Username is required")  
-        .isNumeric().withMessage("Verificationcode must be in Numbers")
+    query("username")
+        .notEmpty().withMessage("Username is required")
+        .isString().withMessage("Username must be a string"),
+    query("verificationCode")
+        .notEmpty().withMessage("Verification code is required")
+        .isString().withMessage("Verificationcode must string")
 ];
 
 const verificationEmailValidator = [
@@ -20,7 +20,7 @@ const verificationEmailValidator = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return sendResponse(res, 400, "error", "Validation failed", errors.array()[0].msg);
+            return sendResponse(res, 400, false, errors.array()[0].msg);
         }
         next();
     }
@@ -30,7 +30,7 @@ const verifyAccountValidator = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return sendResponse(res, 400, "error", "Validation failed", errors.array()[0].msg);
+            return sendResponse(res, 400, false, errors.array()[0].msg);
         }
         next();
     }
@@ -38,4 +38,4 @@ const verifyAccountValidator = [
 
 
 
-module.exports={verificationEmailValidator,verifyAccountValidator}
+module.exports = { verificationEmailValidator, verifyAccountValidator }

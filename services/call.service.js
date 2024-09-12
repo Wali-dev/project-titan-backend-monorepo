@@ -17,10 +17,10 @@ module.exports.addCallService = async (username, callServiceData) => {
         const newCallService = new Call1to1(callServiceData);
         await newCallService.save({ session });
 
-        if (!profile.callServices) {
-            profile.callServices = [];
+        if (!profile.call1to1s) {
+            profile.call1to1s = [];
         }
-        profile.callServices.push(newCallService._id);
+        profile.call1to1s.push(newCallService._id);
 
         try {
             await profile.save({ session });

@@ -6,29 +6,26 @@ const Call1to1 = require('./1to1Call.model');
 const DocumentService = require('./digitalDocument.model');
 const Order = require('./order.model');
 const PMessage = require('./priorityMessage.model');
+const Review = require('./review.model');
 
 const profileSchema = new Schema({
     username: {
         type: String,
         sparse: true,
-        index: true,
-        lowercase: true
+        index: true
     },
     email: {
         type: String,
         required: true,
         unique: true,
         index: true,
-        lowercase: true
     },
     firstname: {
         type: String,
         required: true,
-        lowercase: true
     },
     lastname: {
         type: String,
-        lowercase: true
     },
     password: {
         type: String,
@@ -85,6 +82,10 @@ const profileSchema = new Schema({
     orders: [{
         type: Schema.Types.ObjectId,
         ref: 'Order'
+    }],
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Review'
     }]
 }, {
     timestamps: true

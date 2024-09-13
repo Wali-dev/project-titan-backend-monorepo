@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 module.exports.addOrder = async (username, orderData) => {
     const session = await mongoose.startSession();
     session.startTransaction();
-    console.log(username)
+
     try {
         const profile = await profileModel.findOne({ username }).session(session);
         if (!profile) {

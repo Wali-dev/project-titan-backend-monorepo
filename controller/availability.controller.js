@@ -1,5 +1,5 @@
 
-const { createAvailability, updateavailability } = require("../services/availability.service");
+const { createAvailability, updateavailability, getAllAvailabilities } = require("../services/availability.service");
 const sendResponse = require("../utils/sendResponse");
 
 
@@ -27,8 +27,20 @@ const updateAvailability = async (req, res) => {
     }
 }
 
+const getAllAvailability = async (req, res) => {
+    const { username } = req.params
+    const response = await getAllAvailabilities(username);
+    if (response) {
+        sendResponse(res, 200, true, "Availabilities fetched succesfully", response)
+    }
+    else {
+        sendResponse(res, 400, false, "Failed to fetch availabilities", response)
+    }
+}
+
 
 module.exports = {
     addAvailability,
-    updateAvailability
+    updateAvailability,
+    getAllAvailability
 };

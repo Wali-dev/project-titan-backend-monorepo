@@ -7,7 +7,7 @@ const DocumentService = require('./digitalDocument.model');
 const Order = require('./order.model');
 const PMessage = require('./priorityMessage.model');
 const Review = require('./review.model');
-const Available = require('./availability.model');
+const Availability = require('./availability.model');
 
 const profileSchema = new Schema({
     username: {
@@ -70,7 +70,7 @@ const profileSchema = new Schema({
     // References to related models
     availabilities: [{
         type: Schema.Types.ObjectId,
-        ref: 'Available'
+        ref: 'Availability'
     }],
     pMessages: [{
         type: Schema.Types.ObjectId,

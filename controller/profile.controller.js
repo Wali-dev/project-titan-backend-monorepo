@@ -11,7 +11,7 @@ const getSingleProfile = async (req, res) => {
         sendResponse(res, 200, true, "User fetched succesfully", response)
     }
     else {
-         sendResponse(res, 400, false, "Failed to fetch user", response)
+        sendResponse(res, 400, false, "Failed to fetch user", response)
     }
 }
 
@@ -48,6 +48,7 @@ const addSocialLink = async (req, res) => {
         sendResponse(res, 400, false, "Failed to add social link", response)
     }
 }
+
 const deleteSocialLink = async (req, res) => {
     const { username, platform, url } = req.body
     const response = await deleteSocialItem(username, platform, url);
@@ -58,7 +59,6 @@ const deleteSocialLink = async (req, res) => {
         sendResponse(res, 400, false, "Failed to delete social link", response)
     }
 }
-
 
 
 module.exports = {

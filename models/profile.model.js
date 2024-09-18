@@ -1,76 +1,102 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const pMessage = require('./priorityMessage.model');
-const call1to1 = require("./1to1Call.model");
-const documentService = require("./digitalDocument.model");
-const order = require("./order.model");
+
+// Import related models
+const Call1to1 = require('./1to1Call.model');
+const DocumentService = require('./digitalDocument.model');
+const Order = require('./order.model');
+const PMessage = require('./priorityMessage.model');
+const Review = require('./review.model');
+const Availability = require('./availability.model');
 
 const profileSchema = new Schema({
     username: {
         type: String,
-        required: false,
+        sparse: true,
+        index: true
     },
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        index: true,
     },
     firstname: {
         type: String,
-        required: true
+        required: true,
     },
     lastname: {
         type: String,
-        required: false
     },
     password: {
         type: String,
         required: true
     },
-    profile_picture: {
-        type: String,
-        required: false
+    profilePicture: {
+        type: String
     },
     intro: {
-        type: String,
-        required: false
+        type: String
     },
     phone: {
         type: String,
-        required: false
+        sparse: true,
+        index: true
     },
     description: {
-        type: String,
-        required: false
+        type: String
     },
-    social: {
-        type: [{
-            platform: String,
-            url: String
-        }],
-        required: false
-    },
+    social: [{
+        platform: String,
+        url: String
+    }],
     isDeleted: {
         type: Boolean,
-        default: false
+        default: false,
+        index: true
     },
     isVerified: {
         type: Boolean,
-        default: false
+        default: false,
+        index: true
     },
     verificationCode: {
-        type: String,
+        type: String
     },
     verificationCodeExpire: {
-        type: Date,
+        type: Date
     },
-    pMessages: { type: [pMessage.schema], default: [] },
-    call1to1s: { type: [call1to1.schema], default: [] },
-    documentServices: { type: [documentService.schema], default: [] },
 
-    //Orders
-    orders: { type: [order.schema], default: [] }
-
+    // References to related models
+    availabilities: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Availability'
+    }],
+    pMessages: [{
+        type: Schema.Types.ObjectId,
+        ref: 'PMessage'
+    }],
+    call1to1s: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Call1to1'
+    }],
+    documentServices: [{
+        type: Schema.Types.ObjectId,
+        ref: 'DocumentService'
+    }],
+    orders: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Order'
+    }],
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Review'
+    }]
+}, {
+    timestamps: true
 });
+
+// Compound index for common query patterns
+profileSchema.index({ isDeleted: 1, isVerified: 1 });
 
 module.exports = mongoose.model("Profile", profileSchema);

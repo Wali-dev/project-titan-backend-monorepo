@@ -1,4 +1,4 @@
-const { addCall, updateCalls } = require("../services/call.service");
+const { updateCalls, addCallService, updateCallService } = require("../services/call.service");
 const { addDocument, updateDocuments } = require("../services/document.service");
 const { addPriorityMessages, updatePMessage } = require("../services/priorityMessage.service");
 const sendResponse = require("../utils/sendResponse");
@@ -30,7 +30,7 @@ const updatePM = async (req, res) => {
 const createCall = async (req, res) => {
     const { username } = req.params;
     const callServiceData = req.body
-    const response = await addCall(username, callServiceData);
+    const response = await addCallService(username, callServiceData);
     if (response) {
         sendResponse(res, 200, true, "Call created successfully", response)
     }
@@ -42,7 +42,7 @@ const createCall = async (req, res) => {
 const updateCall = async (req, res) => {
     const { username, callserviceId } = req.query;
     const updatedCallData = req.body;
-    const response = await updateCalls(username, callserviceId, updatedCallData);
+    const response = await updateCallService(username, callserviceId, updatedCallData);
     if (response) {
         sendResponse(res, 200, true, "Call updated successfully", response)
     }

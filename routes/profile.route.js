@@ -1,6 +1,7 @@
 const express = require('express');
 const { getSingleProfile, updateProfile, deleteProfile, addSocialLink, deleteSocialLink } = require("../controller/profile.controller");
 const { getSingleProfileValidator, updateProfileValidator } = require('../validators/profile.validator');
+const { addAvailability, updateAvailability, getAllAvailability } = require('../controller/availability.controller');
 
 const router = express.Router();
 
@@ -12,6 +13,10 @@ router.patch("/delete/:username", getSingleProfileValidator, deleteProfile);
 router.post("/social", addSocialLink);
 router.delete("/social", deleteSocialLink);
 
+//availability link
+router.post("/availability/:username", addAvailability)
+router.patch("/availability/:username/:availabilityId", updateAvailability)
+router.get("/availability/:username", getAllAvailability)
 
 
 module.exports = router;

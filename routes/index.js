@@ -8,6 +8,7 @@ const verifyRouter = require('./verify.route');
 const serviceRouter = require('./service.route');
 const orderRouter = require('./order.route');
 const resetRouter=require("./reset.route");
+const reviewRouter = require('./review.route');
 
 const routes = [
     {
@@ -37,6 +38,10 @@ const routes = [
     {
         path: '/reset',
         router: resetRouter
+    },
+    {
+        path: '/review',
+        router: reviewRouter
     },
 
 

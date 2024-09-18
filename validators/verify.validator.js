@@ -12,7 +12,7 @@ const verifyAccountSchema = [
         .isString().withMessage("Username must be a string"),
     query("verificationCode")
         .notEmpty().withMessage("Verification code is required")
-        .isString().withMessage("Verificationcode must string")
+        .isString().withMessage("Verificationcode must be string")
 ];
 
 const verificationEmailValidator = [

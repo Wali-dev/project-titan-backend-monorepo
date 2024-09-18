@@ -48,6 +48,7 @@ const addSocialLink = async (req, res) => {
         sendResponse(res, 400, false, "Failed to add social link", response)
     }
 }
+
 const deleteSocialLink = async (req, res) => {
     const { username, platform, url } = req.body
     const response = await deleteSocialItem(username, platform, url);
@@ -58,7 +59,6 @@ const deleteSocialLink = async (req, res) => {
         sendResponse(res, 400, false, "Failed to delete social link", response)
     }
 }
-
 
 
 module.exports = {

@@ -12,10 +12,10 @@ const pmSchema = new Schema({
     },
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
-    totalViews: { type: String },
-    totalBookings: { type: String },
-    totalEarnings: { type: String },
-    conversing: { type: String }
+    totalViews: { type: Number },
+    totalBookings: { type: Number },
+    totalEarnings: { type: Number },
+    conversing: { type: Number }
 });
 
 const pMessage = mongoose.model('pMessage', pmSchema);

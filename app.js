@@ -3,7 +3,7 @@ const app = express()
 const cors = require('cors');
 const router = require('./routes/index');
 const { database } = require('./config/database');
-const profileModel = require('./models/profile.model');
+//const profileModel = require('./models/profile.model');
 const cookieParser = require('cookie-parser');
 
 //Middlewares

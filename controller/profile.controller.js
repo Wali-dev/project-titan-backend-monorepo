@@ -1,5 +1,5 @@
 
-const { getprofile, updateprofile, deleteprofile, addSocialItem, deleteSocialItem } = require("../services/profile.service");
+const { getprofile, updateprofile, deleteprofile, addSocialItem, deleteSocialItem, changepassword, sendPasswordResetemail, passwordReset } = require("../services/profile.service");
 const sendResponse = require("../utils/sendResponse");
 // const profileValidator = require('../validators/profile.validator');
 
@@ -60,11 +60,51 @@ const deleteSocialLink = async (req, res) => {
     }
 }
 
+const changePassword = async (req, res) => {
+    const { password } = req.body
+    const response = await changepassword(password);
+    if (response) {
+        sendResponse(res, 200, true, "Password updated succesfully", response)
+    }
+    else {
+        sendResponse(res, 400, false, "Failed to update password", response)
+    }
+}
+
+const sendForgetPasswordEmail = async (req, res) => {
+    const { identifier } = req.body
+
+    //Getting the hosted url dynamically
+    const url = `${req.protocol}://${req.get('host')}`;
+    const response = await sendPasswordResetemail(identifier, url);
+    if (response) {
+        sendResponse(res, 200, true, "Password reset email sent succesfully", response)
+    }
+    else {
+        sendResponse(res, 400, false, "Failed to send password reset email", response)
+    }
+}
+
+const userPasswordReset = async (req, res) => {
+    const { password } = req.body
+    const { id, token } = req.params;
+    const response = await passwordReset(password, id, token);
+    if (response) {
+        sendResponse(res, 200, true, "Password reset succesfully", response)
+    }
+    else {
+        sendResponse(res, 400, false, "Failed to reset password", response)
+    }
+}
+
 
 module.exports = {
     getSingleProfile,
     updateProfile,
     deleteProfile,
     addSocialLink,
-    deleteSocialLink
+    deleteSocialLink,
+    changePassword,
+    sendForgetPasswordEmail,
+    userPasswordReset
 };

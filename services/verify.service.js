@@ -14,7 +14,7 @@ module.exports.SendVerificationEmail = async (username) => {
             let info = await transporter.sendMail({
                 from: process.env.EMAIL_SENDER,
                 to: userEmail,
-                subject: "Titan | Account Verification",
+                subject: process.env.ACCOUNT_VERIFICATION,
                 html: verificationEmail(verifyCode)
             });
 

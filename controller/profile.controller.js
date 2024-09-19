@@ -62,7 +62,8 @@ const deleteSocialLink = async (req, res) => {
 
 const changePassword = async (req, res) => {
     const { password } = req.body
-    const response = await changepassword(password);
+    const { username } = req.user /*taking the username from the req.user cause in the authMiddleware set the username in req.user*/
+    const response = await changepassword(username, password);
     if (response) {
         sendResponse(res, 200, true, "Password updated succesfully", response)
     }

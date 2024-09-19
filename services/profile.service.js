@@ -119,9 +119,26 @@ module.exports.deleteSocialItem = async (username, platform, url) => {
 //     }
 // }
 
-module.exports.changepassword = async (password) => {
-    if (password) {
-
+module.exports.changepassword = async (username, password) => {
+    try {
+        if (password && username) {
+            const profile = await profileModel.findOne({ username: username });
+            if (!profile) {
+                return "No user exists with this identifier"
+            } else {
+                const salt = await bcrypt.genSalt(7);
+                const hashedPassword = await bcrypt.hash(password, salt);
+                profile.password = hashedPassword;
+                await profile.save();
+                return "Password updated succesfully"
+            }
+        }
+        else {
+            return "Password and token both needed and to be valid"
+        }
+    } catch (error) {
+        console.log(error)
+        return "Failed to change password"
     }
 }
 
@@ -191,36 +208,8 @@ module.exports.passwordReset = async (password, id, token) => {
         else {
             return "Password, id and token all needs to be provided"
         }
-
-
     } catch (error) {
         console.log(error)
         return "Failed to reset password"
-    }
-
-    try {
-        jwt.verify(token, new_secret);
-        if (password && password_confirmation) {
-            if (password === password_confirmation) {
-                const salt = await bcrypt.genSalt(7);
-                const hashedPassword = await bcrypt.hash(password, salt);
-                await UserModel.findByIdAndUpdate(user._id, {
-                    $set: {
-                        password: hashedPassword
-                    }
-                })
-                res.send({ "status": "Success", "message": "Password reset Successfully" })
-
-            } else {
-                throw new Error("Passwords must match");
-            }
-
-        } else {
-            throw new Error("All fields are required");
-        }
-
-    } catch (error) {
-        next(error);
-
     }
 }

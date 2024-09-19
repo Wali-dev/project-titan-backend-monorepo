@@ -1,13 +1,15 @@
-const resetPasswordEmail = require("../email-templates/emailVerificationEmail");
+const resetPasswordEmail = require("../email-templates/passwordResetEmail");
 const profileModel = require("../models/profile.model");
 const transporter = require("../utils/sendEmail");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 module.exports.SendresetPasswordEmail = async (use) => {
     try {
         const user = await profileModel.findOne({ email:use.email });
-        const token = jwt.sign({ userID: user._id }, secret, { expiresIn: '30m' });
-        const link = `http://127.0.0.1:5500/api/v1/reset/reset-password/${user._id}/${token}`;
+        const token = jwt.sign({ userID: user._id }, use.id+process.env.JWT_KEY, { expiresIn: '30m' });
+        const link = `http://localhost:8000/api/v1/reset/resetpassword/${user._id}`;
         if (!user) {
             return "No user found"
         } else {
@@ -41,15 +43,15 @@ module.exports.ResetPassword=async(id,password,cnfPassword)=>{
     try {
         const user=profileModel.findOne({id});
         if(password===cnfPassword){
-            const hash=bcrypt.hash(password);
+            const salt = await bcrypt.genSalt(7);
+            const hash=await bcrypt.hash(password,salt);
             const response = await user.updateOne({
-                // verificationCode: verifyUrl,
                 password: hash
             });
             if (response) {
-                return "Verification email sent"
+                return "password changed successfully"
             } else {
-                return "Failed to send verification email"
+                return "Failed to reset password"
             }
         }
         else{

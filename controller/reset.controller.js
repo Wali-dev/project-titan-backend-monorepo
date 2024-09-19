@@ -16,7 +16,7 @@ const setPassword=async(req,res)=>{
     const response=await ResetPassword(id,password,confirm_password);
     if(!response)sendResponse(res,400,"success","error",response);
     else{
-        sendResponse(res,200,"success","Email sent successfully",response);
+        sendResponse(res,200,"success","Changed password",response);
     }
 }
 

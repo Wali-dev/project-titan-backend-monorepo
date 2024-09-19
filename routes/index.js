@@ -9,6 +9,7 @@ const serviceRouter = require('./service.route');
 const orderRouter = require('./order.route');
 const resetRouter=require("./reset.route");
 const reviewRouter = require('./review.route');
+const paymentRouter=require("./payment.route");
 
 const routes = [
     {
@@ -42,6 +43,10 @@ const routes = [
     {
         path: '/review',
         router: reviewRouter
+    },
+    {
+        path: '/payment',
+        router: paymentRouter
     },
 
 

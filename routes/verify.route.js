@@ -3,7 +3,7 @@ const { sendVerificationEmail, verifyAccount } = require('../controller/verify.c
 const { verificationEmailValidator, verifyAccountValidator } = require('../validators/verify.validator');
 const router = express.Router();
 
-router.get('/:username', verificationEmailValidator,sendVerificationEmail);
-router.post('/', verifyAccountValidator,verifyAccount);
+router.get('/:username', verificationEmailValidator, sendVerificationEmail);
+router.post('/', verifyAccountValidator, verifyAccount);
 
 module.exports = router;

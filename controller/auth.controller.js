@@ -5,16 +5,22 @@ const handleSignin = async (req, res) => {
     const { identifier, password } = req.body
     const response = await handleSignIn(identifier, password);
     if (response) {
-        res.cookie("accesstoken",response,{httpOnly:true});
+        res.cookie("accesstoken", response, { httpOnly: true });
         sendResponse(res, 200, true, "Login successful", response);
     } else {
-        sendResponse(res, 400, false, "login failed", response);
+        sendResponse(res, 400, false, "Login failed", response);
     }
 
 }
 
-const handleLogout=async(req,res)=>{
+const handleLogout = async (req, res) => {
     await handleSignOut(res);
+}
+
+
+const getLoggedUser = async (req, res) => {
+    res.send({ "user": req.user })
+    // res.send("this is the auth")
 }
 
 
@@ -27,8 +33,4 @@ const handleLogout=async(req,res)=>{
 
 
 
-
-
-
-
-module.exports = { handleSignin,handleLogout }
+module.exports = { handleSignin, handleLogout, getLoggedUser }

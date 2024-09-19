@@ -22,7 +22,7 @@ router.patch("/availability/:username/:availabilityId", updateAvailability)
 router.get("/availability/:username", getAllAvailability)
 
 //Reset password
-router.post("/change-password", checkUserAuth, changePassword)
+router.post("/change-password", passwordValidator, checkUserAuth, changePassword)
 
 //Forget password
 router.post("/send-reset-password-email", sendForgetPasswordEmail)

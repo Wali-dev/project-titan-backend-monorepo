@@ -8,7 +8,7 @@ const handleSignin = async (req, res) => {
         res.cookie("accesstoken", response, { httpOnly: true });
         sendResponse(res, 200, true, "Login successful", response);
     } else {
-        sendResponse(res, 400, false, "login failed", response);
+        sendResponse(res, 400, false, "Login failed", response);
     }
 
 }

@@ -5,12 +5,15 @@ const handleSignin = async (req, res) => {
     const { identifier, password } = req.body
     const response = await handleSignIn(identifier, password);
     if (response) {
-        res.cookie("accesstoken", response, { httpOnly: true });
+        // res.cookie("accesstoken", response, { httpOnly: true });
+        if (response == "No user exists with this identifier" || response == "Password does not match") {
+            sendResponse(res, 400, false, "Login failed", response);
+        }
         sendResponse(res, 200, true, "Login successful", response);
-    } else {
+    }
+    else {
         sendResponse(res, 400, false, "Login failed", response);
     }
-
 }
 
 const handleLogout = async (req, res) => {

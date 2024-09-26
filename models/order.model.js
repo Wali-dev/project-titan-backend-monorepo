@@ -7,7 +7,6 @@ const orderSchema = new Schema({
         required: true,
         enum: ['pMessage', '1to1Call', 'digitalProduct']
     },
-    title: { type: String, required: true },
     price: { type: String, required: true },
     username: { type: String, required: true },
     customerName: { type: String },

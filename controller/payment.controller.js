@@ -1,4 +1,5 @@
 const { pay } = require("../services/payment.service");
+const orderModel = require("../models/order.model");
 const sendResponse = require("../utils/sendResponse");
 
 const makepayment=async(req,res)=>{
@@ -8,10 +9,14 @@ const makepayment=async(req,res)=>{
     else sendResponse(res,400,"failed",response);
 }
 
-const sendSuccess=(req,res)=>{
+const sendSuccess = async(req, res) => {
+    const id = req.params.id;
+    await orderModel.findByIdAndUpdate(id, { pending: false, completed: true });
     return sendResponse(res,200,"payment done successfully","done");
 }
-const sendCancel=(req,res)=>{
+const sendCancel = async(req, res) => {
+    const id = req.params.id;
+    await orderModel.findByIdAndDelete(id);
     return sendResponse(res,200,"payment Canceled","done");
 }
 

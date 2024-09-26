@@ -3,7 +3,7 @@ const { makepayment, sendSuccess, sendCancel } = require("../controller/payment.
 const router=express.Router();
 
 router.post("/create-checkout-session",makepayment);
-router.get("/paymentsuccess",sendSuccess);
-router.get("/cancelpayment",sendCancel);
+router.get("/paymentsuccess/:id",sendSuccess);
+router.get("/cancelpayment/:id",sendCancel);
 
 module.exports=router

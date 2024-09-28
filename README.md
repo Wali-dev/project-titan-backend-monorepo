@@ -2,12 +2,54 @@
 
 This README provides an overview of the backend service API endpoints, their functionalities, and examples of how to use them.
 
+## Getting Started
+
+To use this API, make sure you have the following prerequisites:
+
+1. Node.js installed
+2. MongoDB database
+3. Necessary environment variables set up (e.g., database connection string, JWT secret)
+
+### Installation
+
+1. Clone the repository
+2. Run `npm install` to install dependencies
+3. Set up your environment variables
+4. Run `npm run dev` to start the development server with hot-reloading
+5. For production, use `npm start` to run the server
+
+### Dependencies
+
+This project uses the following main dependencies:
+
+- Express.js for the web server
+- Mongoose for MongoDB object modeling
+- Bcrypt for password hashing
+- JSON Web Token (JWT) for authentication
+- Nodemailer for sending emails
+- Stripe for payment processing
+- Express Validator for input validation
+
+For a full list of dependencies and their versions, refer to the `package.json` file.
+
+## Authentication
+
+Most endpoints require authentication. Use the login endpoint to obtain a JWT token, and include it in the Authorization header of your requests:
+
+```
+Authorization: Bearer <your_token_here>
+```
+
+## Error Handling
+
+The API uses standard HTTP status codes to indicate the success or failure of requests. Detailed error messages are provided in the response body for easier debugging.
+
 ## Table of Contents
 
 1. [Profile Service](#profile-service)
 2. [Availability Settings](#availability-settings)
 3. [Registration Service](#registration-service)
-4. [Authentication](#authentication)
+4. [Authentication](#authentication-1)
 5. [Verification](#verification)
 6. [Services](#services)
 7. [Order Service](#order-service)
@@ -306,34 +348,7 @@ This README provides an overview of the backend service API endpoints, their fun
 - **Example**: No body required (orderId in URL)
 
 ### Payment Success
-- Endpoint not specified, needs to update
-
-## Getting Started
-To use this API, make sure you have the following prerequisites:
-
-1. Node.js installed
-2. MongoDB database
-3. Necessary environment variables set up (e.g., database connection string, JWT secret)
-
-## Installation
-
-1. Clone the repository
-2. Run `npm install` to install dependencies
-3. Set up your environment variables
-4. Run `npm run dev` to start the server
-
-## Authentication
-
-Most endpoints require authentication. Use the login endpoint to obtain a JWT token, and include it in the Authorization header of your requests:
-
-```
-Authorization: Bearer <your_token_here>
-```
-
-## Error Handling
-
-The API uses standard HTTP status codes to indicate the success or failure of requests. Detailed error messages are provided in the response body for easier debugging.
-
+- Endpoint not specified, needs to be updated
 
 ## License
 

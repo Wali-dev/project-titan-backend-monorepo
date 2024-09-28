@@ -59,9 +59,7 @@ module.exports.paymentIncomplete = async (orderId) => {
             return "Order not found for order delete"
         }
         await Order.findByIdAndDelete(orderId)
-
         return "Order deleted succesfully due to not completing payment"
-
     } catch (error) {
         console.log(error)
         return "Order deletetation failed"

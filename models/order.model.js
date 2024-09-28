@@ -18,7 +18,6 @@ const orderSchema = new Schema({
     paymentId: { type: String },
     orderDate: { type: Date, required: true },
     pending: { type: Boolean, default: true },
-    completed: { type: Boolean, default: false },
     emailReminderSent: { type: Boolean, default: false },
     phoneReminderSent: { type: Boolean, default: false },
 

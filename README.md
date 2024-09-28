@@ -306,10 +306,9 @@ This README provides an overview of the backend service API endpoints, their fun
 - **Example**: No body required (orderId in URL)
 
 ### Payment Success
-- Endpoint not specified in the collection
+- Endpoint not specified, needs to update
 
 ## Getting Started
-
 To use this API, make sure you have the following prerequisites:
 
 1. Node.js installed
@@ -335,9 +334,6 @@ Authorization: Bearer <your_token_here>
 
 The API uses standard HTTP status codes to indicate the success or failure of requests. Detailed error messages are provided in the response body for easier debugging.
 
-## Contributing
-
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
 
 ## License
 

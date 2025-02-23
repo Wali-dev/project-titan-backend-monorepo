@@ -16,6 +16,8 @@ const createUser = async (req, res) => {
 const emailAvailable = async (req, res) => {
     const { email } = req.body;
     const response = await emailUnique(email);
+
+    console.log(response)
     if (response) {
         sendResponse(res, 200, true, response)
     }

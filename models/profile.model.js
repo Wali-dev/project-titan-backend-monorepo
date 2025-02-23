@@ -66,6 +66,12 @@ const profileSchema = new Schema({
     verificationCodeExpire: {
         type: Date
     },
+    intension: {
+        type: String
+    },
+    expertise: {
+        type: String
+    },
 
     // References to related models
     availabilities: [{

@@ -8,7 +8,7 @@ const verifyRouter = require('./verify.route');
 const serviceRouter = require('./service.route');
 const orderRouter = require('./order.route');
 const reviewRouter = require('./review.route');
-const paymentRouter=require("./payment.route");
+const paymentRouter = require("./payment.route");
 
 const routes = [
     {
